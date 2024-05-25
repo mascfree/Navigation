@@ -41,14 +41,27 @@ class MDP:
         if nodo.estado.es_meta:
             return 0
         return max(
-            sum(
-                arista.accion.probabilidad * (
-                    self.recompensa(nodo, arista.accion, arista.destino) + 
-                    self.factor_descuento * self.V[arista.destino.nombre]
-                )
-                for arista in nodo.estado.aristas if arista.accion == accion
-            )
+            self.ecuacion_de_bellman(nodo, accion)
             for accion in set(arista.accion for arista in nodo.estado.aristas)
+        )
+
+    def ecuacion_de_bellman(self, nodo, accion):
+        """
+        Calcula el valor de un estado según la ecuación de Bellman.
+
+        Args:
+            nodo: Estado actual.
+            accion: Acción tomada desde el estado actual.
+
+        Returns:
+            El valor de estado calculado según la ecuación de Bellman.
+        """
+        return sum(
+            arista.accion.probabilidad * (
+                self.recompensa(nodo, accion, arista.destino) + 
+                self.factor_descuento * self.V[arista.destino.nombre]
+            )
+            for arista in nodo.estado.aristas if arista.accion == accion
         )
 
     def recompensa(self, nodo, accion, siguiente_nodo):
@@ -69,6 +82,14 @@ class MDP:
             return 100
         else:
             return -1
+
+    def imprimir_valores(self):
+        """
+        Imprime los valores de los estados después de la Iteración de Valor.
+        """
+        print("Valores de los estados después de la Iteración de Valor:")
+        for estado, valor in self.V.items():
+            print(f"Estado {estado}: {valor}")
 
     def iteracion_de_politica(self, max_iter=1000, tol=1e-6):
         """
@@ -108,13 +129,7 @@ class MDP:
                 v = self.V[nombre]
                 accion = politica[nombre]
                 if accion:
-                    self.V[nombre] = sum(
-                        arista.accion.probabilidad * (
-                            self.recompensa(nodo, accion, arista.destino) + 
-                            self.factor_descuento * self.V[arista.destino.nombre]
-                        )
-                        for arista in nodo.estado.aristas if arista.accion == accion
-                    )
+                    self.V[nombre] = self.ecuacion_de_bellman(nodo, accion)
                 delta = max(delta, abs(v - self.V[nombre]))
             if delta < tol:
                 break
@@ -131,43 +146,10 @@ class MDP:
         """
         return max(
             (arista.accion for arista in nodo.estado.aristas),
-            key=lambda accion: sum(
-                arista.accion.probabilidad * (
-                    self.recompensa(nodo, accion, arista.destino) + 
-                    self.factor_descuento * self.V[arista.destino.nombre]
-                )
-                for arista in nodo.estado.aristas if arista.accion == accion
-            ),
+            key=lambda accion: self.ecuacion_de_bellman(nodo, accion),
             default=None
         )
 
-    def ecuacion_de_bellman(self, nodo, accion):
-        """
-        Calcula el valor de un estado según la ecuación de Bellman.
-
-        Args:
-            nodo: Estado actual.
-            accion: Acción tomada desde el estado actual.
-
-        Returns:
-            El valor de estado calculado según la ecuación de Bellman.
-        """
-        return sum(
-            accion.probabilidad * (
-                self.recompensa(nodo, accion, arista.destino) + 
-                self.factor_descuento * self.V[arista.destino.nombre]
-            )
-            for arista in nodo.estado.aristas if arista.accion == accion
-        )
-
-    def imprimir_valores(self):
-        """
-        Imprime los valores de los estados después de la Iteración de Valor.
-        """
-        print("Valores de los estados después de la Iteración de Valor:")
-        for estado, valor in self.V.items():
-            print(f"Estado {estado}: {valor}")
-            
     def imprimir_politica(self, politica):
         """
         Imprime la política resultante.
