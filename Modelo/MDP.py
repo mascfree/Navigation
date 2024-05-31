@@ -20,7 +20,7 @@ class MDP:
             tol: Tolerancia para la convergencia (por defecto 1e-6).
         """
         for i in range(max_iter):
-            delta = 0
+            delta = 0 # Variable para rastrear el cambio máximo en los valores de los estados durante esta iteración
             for nombre, nodo in self.grafo.nodos.items():
                 v = self.V[nombre]
                 self.V[nombre] = self.valor_de_estado(nodo)
@@ -81,7 +81,7 @@ class MDP:
         elif siguiente_nodo.es_meta:
             return 100
         else:
-            return -1
+            return 1
 
     def imprimir_valores(self):
         """
@@ -107,10 +107,10 @@ class MDP:
             self.evaluacion_de_politica(politica, tol)
             politica_estable = True
             for nombre, nodo in self.grafo.nodos.items():
-                mejor_accion = self.mejor_accion(nodo)
-                if mejor_accion != politica[nombre]:
+                mejor_politica = self.mejora_politica(nodo)
+                if mejor_politica != politica[nombre]:
                     politica_estable = False
-                    politica[nombre] = mejor_accion
+                    politica[nombre] = mejor_politica
             if politica_estable:
                 break
         return politica
@@ -134,7 +134,7 @@ class MDP:
             if delta < tol:
                 break
 
-    def mejor_accion(self, nodo):
+    def mejora_politica(self, nodo):
         """
         Encuentra la mejor acción para un estado dado.
 

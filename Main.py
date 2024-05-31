@@ -33,6 +33,10 @@ def ejecutar_MDP(filename):
                 accion = Accion(direccion, probabilidad)
                 grafo.agregar_arista(origen, Estado(destino_nombre), accion)
 
+    grafo.imprimir_nodos()
+    grafo.imprimir_aristas()
+
+
     mdp = MDP(grafo)
 
     # Obtener uso de la memoria antes de la ejecución
@@ -65,10 +69,14 @@ def ejecutar_MDP(filename):
     print(f"Tiempo transcurrido: {tiempo_transcurrido} segundos")
     print(f"Uso de memoria: {memoria_utilizada_mb} MB")
 
+
 # Ejecutar el primer caso de prueba
 print("Ejecutando primer caso de prueba navigator3-15-0-0.json:")
-ejecutar_MDP('Problema\\navigator3-15-0-0.json')
+#ejecutar_MDP('Problema\\navigator3-15-0-0.json')
+ejecutar_MDP('Problema\\Prueba.json')
 
+"""
 # Ejecutar el segundo caso de prueba
 print("\nEjecutando segundo caso de prueba navigator4-10-0-0.json:")
 ejecutar_MDP('Problema\\navigator4-10-0-0.json')
+"""

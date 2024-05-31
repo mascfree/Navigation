@@ -1,0 +1,100 @@
+{
+  "S0": {
+    "goal": false,
+    "deadend": false,
+    "heuristic": 0,
+    "Adj": [
+      {
+        "name": "S2",
+        "A": {
+          "N": 1
+        }
+      },
+      {
+        "name": "S1",
+        "A": {
+          "S": 1
+        }
+      }
+    ]
+  },
+  "S1": {
+    "goal": false,
+    "deadend": false,
+    "heuristic": 0,
+    "Adj": [
+      {
+        "name": "S2",
+        "A": {
+          "N": 0.7
+        }
+      },
+      {
+        "name": "S1",
+        "A": {
+          "N": 0.3
+        }
+      },
+      {
+        "name": "S3",
+        "A": {
+          "E": 1
+        }
+      }
+    ]
+  },
+  "S2": {
+    "goal": false,
+    "deadend": false,
+    "heuristic": 0,
+    "Adj": [
+      {
+        "name": "S1",
+        "A": {
+          "S": 1
+        }
+      },
+      {
+        "name": "S3",
+        "A": {
+          "E": 0.8
+        }
+      },
+      {
+        "name": "Sg",
+        "A": {
+          "E": 0.2
+        }
+      }
+    ]
+  },
+  "S3": {
+    "goal": false,
+    "deadend": false,
+    "heuristic": 0,
+    "Adj": [
+      {
+        "name": "Sg",
+        "A": {
+          "S": 1
+        }
+      }
+    ]
+  },
+  "Sg": {
+    "goal": true,
+    "deadend": false,
+    "heuristic": 0,
+    "Adj": [
+      {
+        "name": "Sg",
+        "A": {
+          "N": 1,
+          "S": 1,
+          "E": 1,
+          "W": 1
+        }
+      }
+    ]
+  }
+}
