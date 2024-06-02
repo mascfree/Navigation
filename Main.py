@@ -46,7 +46,8 @@ def ejecutar_MDP(filename):
     tiempo_inicial = time.time()
 
     # Ejecutar Iteración de Valor
-    mdp.iteracion_de_valor()
+    ite = mdp.iteracion_de_valor()
+    print("Nro de iteraciones:", ite)
     mdp.imprimir_valores()
 
     # Ejecutar Iteración de Política
@@ -72,8 +73,8 @@ def ejecutar_MDP(filename):
 
 # Ejecutar el primer caso de prueba
 print("Ejecutando primer caso de prueba navigator3-15-0-0.json:")
-#ejecutar_MDP('Problema\\navigator3-15-0-0.json')
-ejecutar_MDP('Problema\\Prueba.json')
+ejecutar_MDP('Problema\\navigator3-15-0-0.json')
+#ejecutar_MDP('Problema\\Prueba.json')
 
 """
 # Ejecutar el segundo caso de prueba

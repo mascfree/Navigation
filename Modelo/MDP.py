@@ -19,15 +19,18 @@ class MDP:
             max_iter: Número máximo de iteraciones (por defecto 1000).
             tol: Tolerancia para la convergencia (por defecto 1e-6).
         """
+        ite = 0
         for i in range(max_iter):
             delta = 0 # Variable para rastrear el cambio máximo en los valores de los estados durante esta iteración
+            ite = ite + 1 
             for nombre, nodo in self.grafo.nodos.items():
                 v = self.V[nombre]
                 self.V[nombre] = self.valor_de_estado(nodo)
                 delta = max(delta, abs(v - self.V[nombre]))
             if delta < tol:
                 break
-
+        return ite
+            
     def valor_de_estado(self, nodo):
         """
         Calcula el valor de un estado dado según la ecuación de Bellman.
@@ -40,7 +43,7 @@ class MDP:
         """
         if nodo.estado.es_meta:
             return 0
-        return max(
+        return min(
             self.ecuacion_de_bellman(nodo, accion)
             for accion in set(arista.accion for arista in nodo.estado.aristas)
         )
@@ -58,13 +61,14 @@ class MDP:
         """
         return sum(
             arista.accion.probabilidad * (
-                self.recompensa(nodo, accion, arista.destino) + 
+                1 + #self.recompensa(nodo, accion, arista.destino) + 
                 self.factor_descuento * self.V[arista.destino.nombre]
             )
             for arista in nodo.estado.aristas if arista.accion == accion
         )
 
-    def recompensa(self, nodo, accion, siguiente_nodo):
+
+    #def recompensa(self, nodo, accion, siguiente_nodo):
         """
         Calcula la recompensa asociada a una acción que lleva de un estado a otro.
 
@@ -76,12 +80,14 @@ class MDP:
         Returns:
             La recompensa asociada a la transición.
         """
+        """
         if siguiente_nodo.es_mortal:
             return -100
         elif siguiente_nodo.es_meta:
             return 100
         else:
-            return 1
+        """
+        #return 1
 
     def imprimir_valores(self):
         """
