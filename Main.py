@@ -19,19 +19,21 @@ def ejecutar_MDP(filename):
         es_meta = value['goal']
         es_mortal = value['deadend']
         heuristica = value['heuristic']
-        estado = Estado(nombre, es_meta, es_mortal, heuristica)
+        estado = Estado(nombre, es_meta, es_mortal, heuristica) # crea un estado
         grafo.agregar_nodo(estado)
 
     # Iterar sobre los elementos del JSON para agregar aristas al grafo
     for key, value in estructura.items():
         origen_nombre = key
         origen = grafo.nodos[origen_nombre].estado
+        destino = None
         for adj in value['Adj']:
             destino_nombre = adj['name']
+            destino =  grafo.nodos[destino_nombre].estado
             acciones = adj['A']
             for direccion, probabilidad in acciones.items():
                 accion = Accion(direccion, probabilidad)
-                grafo.agregar_arista(origen, Estado(destino_nombre), accion)
+                grafo.agregar_arista(origen,destino, accion)
 
     grafo.imprimir_nodos()
     grafo.imprimir_aristas()
@@ -72,12 +74,11 @@ def ejecutar_MDP(filename):
 
 
 # Ejecutar el primer caso de prueba
-print("Ejecutando primer caso de prueba navigator3-15-0-0.json:")
-ejecutar_MDP('Problema\\navigator3-15-0-0.json')
+#print("Ejecutando primer caso de prueba navigator3-15-0-0.json:")
+#ejecutar_MDP('Problema\\navigator3-15-0-0.json')
 #ejecutar_MDP('Problema\\Prueba.json')
 
-"""
+
 # Ejecutar el segundo caso de prueba
 print("\nEjecutando segundo caso de prueba navigator4-10-0-0.json:")
 ejecutar_MDP('Problema\\navigator4-10-0-0.json')
-"""
