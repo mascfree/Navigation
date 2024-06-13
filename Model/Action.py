@@ -1,5 +1,5 @@
-class Accion:
-    def __init__(self, direccion, probabilidad):
+class Action:
+    def __init__(self, direction, probability):
         """
         Inicializa una acción con una dirección y una probabilidad asociadas.
 
@@ -7,8 +7,8 @@ class Accion:
             direccion (str): Dirección de la acción.
             probabilidad (float): Probabilidad de que la acción tenga éxito.
         """
-        self.direccion = direccion
-        self.probabilidad = probabilidad
+        self.direction = direction
+        self.probability = probability
 
     def __str__(self):
         """
@@ -17,4 +17,4 @@ class Accion:
         Returns:
             str: Cadena que representa la acción y su probabilidad.
         """
-        return f"Accion: {self.direccion}, Probabilidad: {self.probabilidad}"
+        return f"Direccion: {self.direction}, direccion: {self.probability}"
