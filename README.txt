@@ -1,5 +1,5 @@
 Descripción de Archivos
-
+--------------------------------------------------------------------------------
 main.py
 El archivo principal para ejecutar el proyecto y mostrar los resultados.
 
@@ -28,17 +28,23 @@ IV.py
 Implementa el algoritmo de Iteración de Valores (Value Iteration).
 
 Experiment/GraphProblem1.py
-Genera el Grafo del problema navigator3-15-0-0.json con la librería networkx
+Dibuja el Grafo del problema navigator3-15-0-0.json con la librería networkx, se usó previamente 
+GenParesAristasP1.py para generar la lista de pares de aristas que genera el dibujo del grafo.
 
 GraphProblem2.py
-Genera el Grafo del problema navigator4-10-0-0.json con la librería networkx
-
+Dibuja el Grafo del problema navigator4-10-0-0.json con la librería networkx, se usó previamente 
+GenParesAristas2.py para generar la lista de pares de aristas que genera el dibujo del grafo.
 
 Librerías Utilizadas:
-
+---------------------------------------------------------------
 json, psutil, time, functools, networkx, pandas
 
 Ejecutado con Python 3.12.3
+
+14/06
+Nota: Para visualizar mejor las soluciones de ambos problemas se añadió un método print1, que 
+permita visualizar la solución mas legible.
+
 
 
 
